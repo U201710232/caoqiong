@@ -6,3 +6,9 @@ sky:
     database: sky_take_out
     username: root
     password: "zhangzijian6666"
+
+  alioss:
+    endpoint: oss-cn-beijing.aliyuncs.com
+    access-key-id: LTAI5tDygctiF6PnrKXy2vvq
+    access-key-secret: LigQvIa5baBGMxNwPNICsW8N40OhYA
+    bucket-name: zijian-java-sky-out
