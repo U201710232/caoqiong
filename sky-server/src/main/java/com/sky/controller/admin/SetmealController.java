@@ -1,17 +1,17 @@
 package com.sky.controller.admin;
 
 import com.sky.constant.MessageConstant;
+import com.sky.dto.EmployeePageQueryDTO;
 import com.sky.dto.SetmealDTO;
+import com.sky.dto.SetmealPageQueryDTO;
+import com.sky.result.PageResult;
 import com.sky.result.Result;
 import com.sky.service.SetmealService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/admin/setmeal")
@@ -33,4 +33,26 @@ public class SetmealController {
         setmealService.save(setmealDTO);
         return Result.success(MessageConstant.SETMEAL_CREATE_SUCCESS);
     }
+
+    /**
+     * 套餐分页查询
+     * @param setmealPageQueryDTO
+     * @return
+     */
+    @GetMapping("/page")
+    @ApiOperation(value = "分页查询套餐")
+    public Result<PageResult> page(SetmealPageQueryDTO setmealPageQueryDTO){
+        log.info("套餐分页查询，参数为:{}", setmealPageQueryDTO);
+        PageResult pageResult = setmealService.pageQuery(setmealPageQueryDTO);
+        return Result.success(pageResult);
+    }
+
+    @DeleteMapping
+    @ApiOperation(value = "删除套餐")
+    public Result delete(@RequestParam("ids") Long[] ids){
+        log.info("删除套餐，ids:{}", ids);
+        setmealService.deleteBatch(ids);
+        return Result.success(MessageConstant.SETMEAL_DELETE_SUCCESS);
+    }
+
 }
