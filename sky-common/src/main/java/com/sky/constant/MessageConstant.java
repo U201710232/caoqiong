@@ -27,6 +27,8 @@ public class MessageConstant {
     public static final String SETMEAL_CREATE_SUCCESS = "套餐创建成功";
     public static final String SETMEAL_DELETE_SUCCESS = "套餐删除成功";
     public static final String SETMEAL_UPDATE_SUCCESS = "套餐修改成功";
+    public static final String DISH_DELETE_SUCCESS = "菜品修改成功";
+
 
 
 }

@@ -182,16 +182,32 @@ public class DishServiceImpl implements DishService {
         List<DishVO> dishVOList = new ArrayList<>();
 
         for (DishVO d : dishList) {
-            DishVO dishVO = new DishVO();
-            BeanUtils.copyProperties(d,dishVO);
+            if (d.getStatus() != null && d.getStatus() == StatusConstant.ENABLE) {
+                DishVO dishVO = new DishVO();
+                BeanUtils.copyProperties(d, dishVO);
 
-            //根据菜品id查询对应的口味
-            List<DishFlavor> flavors = dishFlavorMapper.getByDishId(d.getId());
+                //根据菜品id查询对应的口味
+                List<DishFlavor> flavors = dishFlavorMapper.getByDishId(d.getId());
 
-            dishVO.setFlavors(flavors);
-            dishVOList.add(dishVO);
+                dishVO.setFlavors(flavors);
+                dishVOList.add(dishVO);
+            }
         }
 
         return dishVOList;
+    }
+
+
+    /**
+     * 起售停售菜品
+     * @param id
+     * @param status
+     */
+    public void updateStatus(Long id, Integer status){
+        Dish dish = Dish.builder()
+                .id(id)
+                .status(status)
+                .build();
+        dishMapper.update(dish);
     }
 }
